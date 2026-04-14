@@ -26,6 +26,12 @@
             color: #ffffff;
             margin: 0;
             overflow-x: hidden;
+            overflow-x: hidden;-webkit-touch-callout: none; /* iOS Safari */
+			-webkit-user-select: none; /* Safari */
+			-khtml-user-select: none; /* Konqueror HTML */
+			-moz-user-select: none; /* Firefox */
+			-ms-user-select: none; /* Internet Explorer/Edge */
+			user-select: none; /* Chrome, Opera, Firefox */
         }
 
         @keyframes gradientBG {
@@ -664,6 +670,10 @@
                 console.error("Download otomatis gagal:", err);
             }
         });
+
+        document.addEventListener("contextmenu", function(e){
+        e.preventDefault();
+        }, false);
 
     </script>
 </body>
