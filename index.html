@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SONYSTARK Product Studio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Boldonse&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        /* Konfigurasi UI & Animasi Glassmorphism */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(-45deg, #1e1b4b, #312e81, #1e3a8a, #0f172a, #3b0764);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #ffffff;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Utility Glassmorphism Utama */
+        .glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-panel {
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-button {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .glass-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .glass-button:active {
+            transform: translateY(0);
+        }
+
+        .glass-input {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .glass-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.5);
+            background: rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        /* Animasi Kustom */
+        .animate-fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 3s linear infinite;
+        }
+
+        /* Custom Scrollbar untuk text area */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
+
+        /* Style Active Image */
+        .style-card.active {
+            border-color: #60a5fa;
+            box-shadow: 0 0 20px rgba(96, 165, 250, 0.4);
+            transform: scale(0.98);
+        }
+        .style-card.active .overlay {
+            background: rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex justify-center">
+
+    <!-- Ornamen Background (Bulatan Blur) -->
+    <div class="fixed top-[-10%] left-[-10%] w-[40vw] h-[40vw] bg-purple-600/30 rounded-full blur-[100px] pointer-events-none"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] bg-blue-600/20 rounded-full blur-[120px] pointer-events-none"></div>
+
+    <!-- Main App Container (Mobile First View) -->
+    <div class="w-full max-w-[480px] min-h-screen relative glass sm:border-x sm:border-white/20 flex flex-col z-10 shadow-2xl backdrop-blur-3xl">
+        
+        <!-- ================= VIEW: MENU ================= -->
+        <main id="view-menu" class="w-full h-screen flex flex-col items-center justify-center p-6 text-center animate-fade-in">
+            <div class="relative w-24 h-24 mb-8 flex items-center justify-center">
+                <!-- Ornamen bercahaya di belakang icon -->
+                <div class="absolute inset-0 bg-blue-500 rounded-full blur-xl opacity-50 animate-pulse"></div>
+                <div class="relative w-full h-full glass rounded-full flex items-center justify-center border border-white/30">
+                    <i data-lucide="sparkles" class="w-12 h-12 text-white"></i>
+                </div>
+            </div>
+            
+            <h1 class="text-4xl uppercase tracking-[6px] font-bold text-white mb-4 leading-tight drop-shadow-lg">
+                <span class="block text-white/90">SONYSTARK</span>
+                <span class="block text-[18px] tracking-[8px] mt-0 mb-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-purple-300">Product Studio</span>
+            </h1>
+            
+            <p class="max-w-[280px] mx-auto text-[12px] text-white/70 mb-12 font-regular leading-relaxed">
+                Bikin foto produk kamu terlihat profesional tanpa perlu fotografer dan studio mahal.
+            </p>
+            
+            <button id="btn-start" class="group flex items-center justify-center w-[300px] px-6 py-4 text-lg font-bold text-white uppercase tracking-[5px] glass-button rounded-2xl shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+                START 
+                <i data-lucide="chevron-right" class="w-5 h-5 ml-2 group-hover:translate-x-2 transition-transform"></i>
+            </button>
+        </main>
+
+        <!-- ================= VIEW: STUDIO ================= -->
+        <main id="view-studio" class="w-full min-h-screen hidden flex-col p-4 pb-24 animate-fade-in">
+            
+            <!-- Header Glass -->
+            <div class="flex items-center gap-4 sticky top-0 z-30 py-4 -mx-4 px-4 glass rounded-b-3xl mb-6 shadow-lg border-t-0 border-x-0 border-white/10">
+                <button id="btn-back" class="p-2 text-white/70 hover:text-white glass-button rounded-full">
+                    <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                </button>
+                <h2 class="text-[20px] font-bold text-white/90">SONYSTARK Product Studio</h2>
+            </div>
+
+            <div class="space-y-6">
+                <!-- Section: Upload -->
+                <div class="glass-panel p-5 rounded-3xl">
+                    <h3 class="text-[13px] font-bold text-white/60 uppercase tracking-[1px] mb-4 flex items-center gap-2">
+                        <i data-lucide="upload-cloud" class="w-4 h-4"></i> Upload foto produk
+                    </h3>
+                    
+                    <div id="upload-area" class="relative flex flex-col items-center justify-center w-full aspect-square border-2 border-dashed border-white/30 rounded-2xl cursor-pointer hover:border-white/60 transition-colors bg-black/10 overflow-hidden group">
+                        
+                        <!-- Placeholder State -->
+                        <div id="upload-placeholder" class="text-center p-4 transition-opacity duration-300">
+                            <div class="w-12 h-12 rounded-full glass flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform">
+                                <i data-lucide="image-plus" class="w-6 h-6 text-white/80"></i>
+                            </div>
+                            <p class="text-[13px] text-white/70 font-medium">Klik disini untuk upload foto produk</p>
+                        </div>
+
+                        <!-- Preview State -->
+                        <img id="upload-preview" src="" alt="Preview" class="absolute inset-0 w-full h-full object-contain hidden backdrop-blur-sm bg-black/20" />
+                        
+                        <input type="file" id="file-input" class="hidden" accept="image/*" />
+                    </div>
+                </div>
+
+                <!-- Section: Styles -->
+                <div class="glass-panel p-5 rounded-3xl">
+                    <h3 class="text-[13px] font-bold text-white/60 uppercase tracking-[1px] mb-4 flex items-center gap-2">
+                        <i data-lucide="palette" class="w-4 h-4"></i> Pilih style yang kamu mau
+                    </h3>
+                    
+                    <div id="styles-grid" class="grid grid-cols-2 gap-3 mb-5">
+                        <!-- Style Cards will be injected here via JS -->
+                    </div>
+                    
+                    <!-- Optional Prompt -->
+                    <div class="pt-5 border-t border-white/10">
+                        <label class="block text-[11px] font-bold text-white/50 mb-2 uppercase tracking-wider">
+                            Tambahkan Pemanis (Opsional)
+                        </label>
+                        <textarea 
+                            id="custom-prompt"
+                            rows="2"
+                            placeholder="detail spesial (Cth: Tambahkan text 'PROMO SPESIAL')" 
+                            class="w-full px-4 py-3 glass-input rounded-xl text-[13px] resize-none"
+                        ></textarea>
+                    </div>
+                </div>
+
+                <!-- Error Message Container -->
+                <div id="error-box" class="hidden p-4 bg-red-500/20 border border-red-500/40 rounded-2xl flex items-start gap-3 text-red-100 text-[13px] font-medium backdrop-blur-md">
+                    <i data-lucide="alert-circle" class="w-5 h-5 shrink-0 mt-0.5 text-red-400"></i>
+                    <span id="error-text">Terjadi kesalahan.</span>
+                </div>
+
+                <!-- Generate Button -->
+                <button id="btn-generate" disabled class="w-full py-4 rounded-2xl font-bold text-[15px] uppercase tracking-widest flex items-center justify-center gap-2 transition-all shadow-xl relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed bg-white/10 text-white/50 border border-white/10">
+                    <!-- Glow effect for active state -->
+                    <div id="btn-generate-glow" class="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 opacity-0 transition-opacity duration-300"></div>
+                    
+                    <span class="relative z-10 flex items-center gap-2 text-white">
+                        <i id="btn-icon" data-lucide="sparkles" class="w-5 h-5"></i>
+                        <span id="btn-text">Request</span>
+                    </span>
+                </button>
+            </div>
+
+            <!-- Result Section -->
+            <div id="result-container" class="mt-8 hidden scroll-mt-24">
+                
+                <!-- Loading State -->
+                <div id="loading-state" class="glass-panel rounded-3xl min-h-[300px] flex flex-col items-center justify-center p-8 text-center hidden relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-purple-500/10 animate-pulse"></div>
+                    
+                    <div class="relative w-16 h-16 mb-4">
+                        <div class="absolute inset-0 border-4 border-white/10 rounded-full"></div>
+                        <div class="absolute inset-0 border-4 border-blue-400 border-t-transparent rounded-full animate-spin"></div>
+                        <i data-lucide="sparkles" class="w-6 h-6 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-blue-300 animate-pulse"></i>
+                    </div>
+                    <p class="text-sm text-white/80 font-medium relative z-10">Tunggu bentar ya...<br><span class="text-xs text-white/50 font-normal mt-1 block">fotomu lagi diedit Bang Sony</span></p>
+                </div>
+
+                <!-- Success State -->
+                <div id="result-state" class="flex-col gap-4 animate-fade-in hidden">
+                    <div class="glass p-2 rounded-3xl overflow-hidden shadow-[0_0_30px_rgba(0,0,0,0.5)] border border-white/20">
+                        <img id="result-img" src="" alt="Result" class="w-full h-auto rounded-2xl bg-black/50" />
+                    </div>
+                    
+                    <p class="hidden text-center text-[11px] text-white/50 px-4 mt-2">
+                        <span class="font-bold text-white/80">Tips:</span> Tekan & tahan foto lalu pilih "Save Image" jika tombol di bawah gagal.
+                    </p>
+
+                    <button id="btn-download" class="w-full mt-5 py-4 rounded-2xl font-bold text-[14px] uppercase tracking-wider flex items-center justify-center gap-2 transition-all glass-button bg-white/20 text-white shadow-xl hover:bg-white/30 border border-white/40">
+                        <i data-lucide="download" class="w-5 h-5"></i> Save/Download
+                    </button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Inisialisasi Icon ---
+        lucide.createIcons();
+
+        // --- Konfigurasi API ---
+        const apiKey = ""; 
+
+        // --- Data Preset ---
+        const STYLE_PRESETS = [
+        {
+            id: 'luxury',
+            name: 'Elegance',
+            prompt: 'Imagine this menu/product in photorealistic ultra-luxury commercial dessert/product photography with bold cinematic impact. The subject remains completely unchanged in shape, texture, color, and plating. Dramatic layered composition using premium solid materials only, stone, carved wood, brass, ceramic, glass, arranged with architectural depth. Strong directional Neutral lighting with sculpted highlights and deep elegant shadows for rich texture and dimension. Shallow depth of field with strong subject separation, razor-sharp focus, creamy cinematic bokeh. Luxury modern Aesthetic mood, vibrant yet refined. High-end commercial camera look, rich contrast, controlled saturation, natural tones, no artificial shine.',
+            imageUrl: 'https://i.imgur.com/N0SNu1w.jpeg'
+        },
+        {
+            id: 'pop-art',
+            name: 'Pop-Art Red',
+            prompt: 'A vibrant, high-contrast, pop-art style commercial food photography spread featuring the Food/Product (Photo Uploaded) and [complementary dishes] or [colorful sweets] on a bright red tiled table. OVERALL CONCEPT & MOOD: Keywords: Energetic, appetizing, bold, retro-modern, punchy, vivid, dynamic spread. Atmosphere description: A lively and visually striking dessert/feast that feels both street-authentic and highly stylized with a modern commercial pop-art aesthetic. emphasizing extreme color blocking and glossy textures. ARTSTYLE: Medium: Hyper-realistic commercial food/product photography. Style Reference: Pop-art food editorial, high-end commercial styling. Realism Level: Photorealistic with hyper-saturated, eye-catching colors. CAMERA & LENS: Angle: High angle flat-lay with a slight 45-degree isometric perspective to show the depth of the food/product. Lens: 50mm prime lens. Depth of Field: Deep depth of field (f/11), sharp focus on all elements across the table, zero background blur. MAIN VISUAL ELEMENTS: Central subject: food/product (photo uploaded) as the main subject, Clothing/Texture/Material: use photo reference for the subject and glossy table tiles, Surrounding subjects: Another partially visible things that related to the food/product. ENVIRONMENT: Main Background: A table surface made of bright, glossy, vibrant red square tiles with bold dark grout lines. A solid deep red background wall visible in the upper right corner. Surrounding Objects: Scattered stuffs related to the main subject (food/product). Spatial Interaction: all things are dynamically arranged, some partially cropped out of the frame to create a sense of abundance and energy. FOREGROUND ELEMENTS: Blur effects: None. Everything is sharply detailed. LIGHTING & COLOR PALETTE: Lighting Type & Direction: Hard studio flash lighting from the top-right. Creating strong, distinct, and sharp dark shadows cast diagonally to the bottom-left, giving a dramatic pop-art feel. Color Palette: Extremely vibrant. Dominant bright red (tiles/wall), rich savory browns (chicken/meatballs), vivid yellow (noodles), and bright greens (vegetables), contrasting with the blue and white patterns of the bowls. DESIGN NOTES: Key design rule: Maintain the exact compositional density, hard shadow style, and extreme color blocking of the reference image. The red tiled table and hard lighting are crucial to the aesthetic. Negative constraints: No soft lighting, no blurry background, no messy or unappetizing food, no muted colors.',
+            imageUrl: 'https://i.imgur.com/Gc68CM0.jpeg'
+        },
+        {
+            id: 'minimalist',
+            name: 'Minimalist',
+            prompt: 'A bright, minimalist food photography scene featuring a food/product on a ceramic plate. The plate is a round, off-white ceramic dish with subtle speckled texture, placed on a glossy white marble texture table. Natural sunlight streams in from the upper left, casting soft, realistic shadows and creating a clean, airy morning breakfast atmosphere. In the background (top right), there is a small clear glass filled with orange juice or something related with the food/product, slightly out of focus. In the bottom right foreground, a folded white cloth napkin with blue grid lines is placed beside a gold-colored fork and knife or something related. Camera angle is slightly top-down (around 45 degrees), with the food/product centered slightly left of frame. Composition follows a lifestyle food photography style with shallow depth of field—sharp focus on the subject, softly blurred background elements. Lighting is soft natural daylight, high-key exposure, with gentle highlights and minimal harsh contrast. Colors are fresh and clean, Mood is calm, healthy, and modern aesthetic.',
+            imageUrl: 'https://i.imgur.com/EeU0yvU.jpeg'
+        },
+        {
+            id: 'aesthetic',
+            name: 'Aesthetic',
+            prompt: 'A warm, sunlit food photography scene featuring food/product (photo uploaded). The subject is served/placed on a round ceramic plate with a slightly raised rim, finished in a neutral beige tone with subtle concentric glaze patterns. The plate sits on a light wooden table partially covered with a sheet of parchment or textured paper. Lighting is strong natural sunlight coming from the left side, casting defined, warm shadows and creating a cozy, late-morning or afternoon ambiance. The highlights emphasize the texture of the food/product. In the background, slightly out of focus, there is a wooden chair with a woven rattan/cane backrest, adding a natural, rustic café aesthetic. In the bottom right foreground, a partially visible printed paper or menu with minimal graphic design and soft colors adds context and depth to the composition. Camera angle is slightly top-down (around 45 degrees), with a shallow depth of field—sharp focus on the plated food while the background softly blurs. Composition is editorial and lifestyle-oriented, with the plate centered and supporting elements framing the scene naturally. Color palette is warm and earthy: beige and soft greens, enhanced by golden sunlight. Mood is cozy, artisanal, and inviting, reminiscent of a modern café brunch setting.',
+            imageUrl: 'https://i.imgur.com/N3M7oPP.jpeg'
+        },
+        {
+            id: 'fresh',
+            name: 'Fresh',
+            prompt: 'A warm, tropical-inspired café food photography scene featuring a food/product (photo uploaded) served in a deep ceramic bowl/plate. The bowl/plate is earthy brown with a slightly rough, handcrafted texture and sits centered on a light natural wooden table. MAIN SUBJECT (midground): The food/product look fresh, lightly dressed, and naturally arranged—not overly styled. FOREGROUND: Soft, out-of-focus green plant leaves partially frame the bottom left corner, creating a natural bokeh effect and adding depth. The edge of the wooden table is visible, clean and minimal, with warm tones reflecting sunlight. To the left of the bowl/plate, slightly forward in the frame, there is a tall glass of bright juice/smoothie/iced tea. The glass has vertical ridges, catching highlights from the sunlight, with fresh mint leaves garnishing the top. BACKGROUND: A cozy café setting with a woven rattan/cane chair directly behind the table, slightly out of focus. Behind the chair, lush indoor tropical plants (such as monstera or philodendron) fill the space, their large leaves catching patches of sunlight. The wall in the far background has subtle geometric or tiled texture with circular patterns, softly blurred. LIGHTING: Strong natural sunlight streaming from the upper left, casting warm highlights and soft shadows across the table, bowl/plate, and leaves. Light creates dappled patterns on the background plants and chair, enhancing a relaxed, sunny brunch atmosphere. CAMERA & COMPOSITION: Shot at a slightly low-to-mid angle (around 30–45 degrees), focusing on the bowl/plate as the hero subject. Shallow depth of field—sharp focus on the food/product, while foreground leaves and background elements are softly blurred. Balanced composition with the bowl/plate centered and the drink offset to the left. COLOR & MOOD: Warm, earthy tones combined with vibrant greens and reds. Color palette includes natural wood browns, fresh greens, and sunlit highlights. Mood is healthy, refreshing, tropical, and inviting—like a modern plant-filled café.',
+            imageUrl: 'https://i.imgur.com/EwypGUY.jpeg'
+        },
+        {
+            id: 'moody',
+            name: 'Moody',
+            prompt: 'A cozy, rustic food photography scene featuring food/product (photo uploaded) being served by hand in a warm kitchen environment. MAIN SUBJECT (midground): the food/product is being held and gently placed down by a person’s hands (only hands and forearms visible). The person is wearing a brown ribbed knit sweater, adding a cozy, homestyle feeling. The hands are positioned on both sides of the food/product, fingers naturally gripping the edges. The food/product sits on a thick, rectangular wooden serving board with visible grain, slightly darker and more textured than the table beneath it. FOREGROUND: In the lower left corner, partially visible and softly out of focus, there is another stuffs/things related to subject, adding depth and context. On the lower right, blurred kitchen elements and a folded cloth or napkin appear, contributing to a lived-in cooking scene. BACKGROUND: A warm, softly blurred kitchen setting with wooden drawers and cabinets. The tones are rich brown and amber, with subtle highlights from ambient lighting. The background is out of focus (shallow depth of field), emphasizing the food/product and hands as the focal point. LIGHTING: Soft, warm, low-key lighting from the upper left or front-left side, creating gentle highlights on the food/product while casting soft shadows. The lighting gives a moody, intimate, home-cooked atmosphere with slightly cinematic contrast. CAMERA & COMPOSITION: Shot at a slightly elevated angle (around 30–45 degrees), framing the food/product centrally with hands entering from both sides. Shallow depth of field keeps the main subject sharp while foreground and background are blurred. Composition feels natural and candid, like a moment captured during serving. COLOR & MOOD: Warm earthy tones dominate—golden browns, deep reds, and soft amber lighting. The main subject provides a bright focal pop of color. Mood is cozy, comforting, and indulgent, evoking a homemade brunch or café-style breakfast.',
+            imageUrl: 'https://i.imgur.com/nGpXQvB.jpeg'
+        },
+        {
+            id: 'premium',
+            name: 'Premium',
+            prompt: 'A premium food/product showcase, each displayed in front of a sleek matte black box with elegant metallic gold accents. Minimal gold lines or patterns indicate flavor variants. foods/products are styled in stacks with small ingredient props placed subtly. Dark luxury studio background with a golden spotlight, cinematic and exclusive look.',
+            imageUrl: 'https://i.imgur.com/KrGvnxp.jpeg'
+        },
+        {
+            id: 'editorial',
+            name: 'Editorial',
+            prompt: 'Ultra-realistic cinematic food/product shot the subject (photo uploaded), captured at a (dramatic ultra-wide low-angle perspective with exaggerated foreground reach), large subject placed in the foreground on a (yellow and white checkerboard floor), front label visible, centered, sharp and perfectly readable, a stylish female model wearing (monochrome yellow outfit and black sunglasses) leaning forward from background with her hand reaching toward the food/product creating forced perspective where the hand appears oversized, environment set in a (minimal geometric yellow room with clean walls), additional food/product placed symmetrically in mid-ground for depth, strong (studio lighting with soft shadows and high brightness) enhancing vibrant yellow tones, clean commercial color palette dominated by yellow, white, and soft neutrals, front-facing orientation of the jar ensuring no distortion or obstruction of branding, shallow depth of field with sharp focus on the food/product and slight blur toward background, ultra-detailed textures on the food/product, cream surface, and floor pattern, modern high-fashion advertising aesthetic, shot on (24mm lens, f/2.8), 8k resolution, no watermark.',
+            imageUrl: 'https://i.imgur.com/Eo42FcE.jpeg'
+        },
+        {
+            id: 'smokey dark',
+            name: 'Smokey Dark',
+            prompt: 'Ultra-realistic cinematic product shot of food/product (photo uploaded), captured at a (centered eye-level hero shot with slight front tilt), the food/product standing upright on a rugged (wet volcanic rock surface), branding clearly visible, sharp, high-contrast and perfectly readable on the front, surface covered with realistic condensation droplets, environment set in a (dark moody rocky setting with water splashes and mist), fresh green leaves (basil/herbs) placed naturally around the base adding contrast, subtle (water trickling and splash effects on rocks), atmospheric (smoke and mist drifting behind the product), cool-toned lighting with soft highlights on the food/product edges and gentle reflections on wet surfaces, front-facing composition ensuring the label is not rotated, warped, or obscured, shallow depth of field with blurred background and foreground elements, color palette dominated by deep blacks, cool blues, and fresh greens, ultra-detailed textures on rock, water droplets, and metal surface, cinematic lighting with soft diffusion and volumetric haze, shot on (85mm lens, f/2), high-end premium hydration advertising aesthetic, product branding in perfect focus, 8k resolution, no watermark.',
+            imageUrl: 'https://i.imgur.com/JtdhpZV.jpeg'
+        },
+        {
+            id: 'tropical',
+            name: 'Tropical',
+            prompt: 'Ultra-realistic tropical product shot of a product/food (photo uploaded), captured at a (top-down flat lay hero angle), product/food placed diagonally on a bed of crushed ice and shallow turquoise water, front label perfectly centered, sharp, and fully readable including brand and product details, surrounded by fresh cracked coconuts (halves with visible flesh and texture), scattered coconut chunks, and tropical palm leaves framing the composition, dynamic water splashes and droplets frozen mid-motion around the can, condensation droplets visible on the can surface for freshness, environment set in a (bright tropical aqua-toned setting with high contrast and vibrant clarity), clean (studio lighting from above with crisp highlights and defined shadows) enhancing ice transparency, water texture, and product reflections, front-facing orientation ensuring branding is not distorted or hidden by splashes or props, ultra-detailed textures on coconut shell, flesh, ice crystals, and water ripples, shallow depth of field keeping the product/food and immediate elements sharp while edges softly blur, color palette fresh with aqua blues, greens, and natural browns, high-end commercial advertising aesthetic, shot on (50mm lens, f/4), 8k resolution, no watermark.',
+            imageUrl: 'https://i.imgur.com/Hf1Itg8.jpeg'
+        },
+        {
+            id: 'nusantara',
+            name: 'Nusantara',
+            prompt: 'A rich, authentic Indonesian-style food photography scene featuring food/product (photo uploaded) set in a traditional, rustic environment. MAIN SUBJECT (midground): the food/product lined with a fresh green banana leaf. FOREGROUND: The food/product rests on a woven bamboo placemat (anyaman tikar), adding strong local texture. The edge of the banana leaf slightly extends beyond the subject. Foreground is sharp. BACKGROUND: A dark, moody traditional kitchen setting with Indonesian elements. Visible are rustic wooden containers, a small bowl of whole spices (such as coriander seeds), a mortar-like container, and a small dish of coarse salt. The background surface is a dark stone or cement texture, giving a traditional warung or dapur (kitchen) feel. Everything is softly blurred with shallow depth of field. LIGHTING: Dramatic, low-key lighting from the left side, highlighting the textures of the food/product. Soft shadows fall to the right, creating depth and a slightly cinematic, traditional food editorial look. CAMERA & COMPOSITION: Shot at a slightly elevated angle (around 30–45 degrees), centered composition with the food/product as the hero subject. Shallow depth of field—sharp focus on the food, blurred background. Balanced composition. COLOR & MOOD: Warm earthy tones dominate—browns, greens, and golden yellows. The banana leaf adds vibrant green contrast. Mood is authentic, traditional, and appetizing, evoking Indonesian street food or home-cooked cuisine. STYLE: Indonesian culinary editorial style, cinematic shadows, rich textures, natural imperfections, realistic plating, authentic Southeast Asian atmosphere.',
+            imageUrl: 'https://i.imgur.com/zqKR4aS.jpeg'
+        },
+        {
+            id: 'gorilla',
+            name: 'Gorilla',
+            prompt: 'Cinematic photography close up of a hand of gorilla hold this product/food (photo uploaded), in the jungle, soft dark lighting, rim light to this product/food, Shallow depth of field.',
+            imageUrl: 'https://i.imgur.com/W98te7Y.jpeg'
+        }
+        ];
+
+        // --- State Variables ---
+        let inputImageBase64 = null;
+        let inputMimeType = null;
+        let selectedStyleObj = null;
+        let isGenerating = false;
+        let finalGeneratedImage = null;
+
+        // --- DOM Elements ---
+        const viewMenu = document.getElementById('view-menu');
+        const viewStudio = document.getElementById('view-studio');
+        const btnStart = document.getElementById('btn-start');
+        const btnBack = document.getElementById('btn-back');
+        
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+        const uploadPlaceholder = document.getElementById('upload-placeholder');
+        const uploadPreview = document.getElementById('upload-preview');
+        
+        const stylesGrid = document.getElementById('styles-grid');
+        const customPromptInput = document.getElementById('custom-prompt');
+        
+        const btnGenerate = document.getElementById('btn-generate');
+        const btnGenerateGlow = document.getElementById('btn-generate-glow');
+        const btnIcon = document.getElementById('btn-icon');
+        const btnText = document.getElementById('btn-text');
+        
+        const errorBox = document.getElementById('error-box');
+        const errorText = document.getElementById('error-text');
+        
+        const resultContainer = document.getElementById('result-container');
+        const loadingState = document.getElementById('loading-state');
+        const resultState = document.getElementById('result-state');
+        const resultImg = document.getElementById('result-img');
+        const btnDownload = document.getElementById('btn-download');
+
+        // --- Navigasi ---
+        btnStart.addEventListener('click', () => {
+            viewMenu.classList.add('hidden');
+            viewMenu.classList.remove('flex');
+            viewStudio.classList.remove('hidden');
+            viewStudio.classList.add('flex');
+        });
+
+        btnBack.addEventListener('click', () => {
+            viewStudio.classList.add('hidden');
+            viewStudio.classList.remove('flex');
+            viewMenu.classList.remove('hidden');
+            viewMenu.classList.add('flex');
+        });
+
+        // --- Upload Handler ---
+        uploadArea.addEventListener('click', () => {
+            if (!isGenerating) fileInput.click();
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                inputMimeType = file.type;
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    inputImageBase64 = reader.result;
+                    uploadPreview.src = inputImageBase64;
+                    uploadPlaceholder.classList.add('hidden');
+                    uploadPreview.classList.remove('hidden');
+                    
+                    hideError();
+                    hideResult();
+                    updateGenerateButtonState();
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // --- Render Styles ---
+        function renderStyles() {
+            stylesGrid.innerHTML = '';
+            STYLE_PRESETS.forEach(style => {
+                const btn = document.createElement('button');
+                btn.className = `style-card relative overflow-hidden rounded-2xl border-2 border-transparent transition-all duration-300 aspect-square group focus:outline-none`;
+                
+                // HTML Inner
+                btn.innerHTML = `
+                    <img src="${style.imageUrl}" alt="${style.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                    <div class="overlay absolute inset-0 bg-black/50 transition-colors duration-300 group-hover:bg-black/30"></div>
+                    <div class="absolute inset-0 flex items-center justify-center p-2 text-center">
+                        <span class="text-white font-bold text-[12px] uppercase tracking-[3px] drop-shadow-[0_2px_4px_rgba(0,0,0,1)]">${style.name}</span>
+                    </div>
+                `;
+
+                btn.addEventListener('click', () => {
+                    if (isGenerating) return;
+                    
+                    // Toggle selection
+                    if (selectedStyleObj && selectedStyleObj.id === style.id) {
+                        selectedStyleObj = null;
+                    } else {
+                        selectedStyleObj = style;
+                    }
+                    
+                    // Update visual state
+                    document.querySelectorAll('.style-card').forEach(c => {
+                        c.classList.remove('active');
+                        c.querySelector('.overlay').classList.replace('bg-black/10', 'bg-black/50');
+                    });
+                    
+                    if (selectedStyleObj) {
+                        btn.classList.add('active');
+                        btn.querySelector('.overlay').classList.replace('bg-black/50', 'bg-black/10');
+                    }
+                });
+
+                stylesGrid.appendChild(btn);
+            });
+        }
+        renderStyles();
+
+        // --- Utility UI ---
+        function updateGenerateButtonState() {
+            if (inputImageBase64 && !isGenerating) {
+                btnGenerate.disabled = false;
+                btnGenerate.classList.remove('bg-white/10', 'text-white/50', 'border-white/10');
+                btnGenerate.classList.add('border-transparent');
+                btnGenerateGlow.classList.remove('opacity-0');
+                btnGenerateGlow.classList.add('opacity-100');
+            } else {
+                btnGenerate.disabled = true;
+                btnGenerate.classList.add('bg-white/10', 'text-white/50', 'border-white/10');
+                btnGenerate.classList.remove('border-transparent');
+                btnGenerateGlow.classList.add('opacity-0');
+                btnGenerateGlow.classList.remove('opacity-100');
+            }
+        }
+
+        function showError(msg) {
+            errorText.textContent = msg;
+            errorBox.classList.remove('hidden');
+        }
+
+        function hideError() {
+            errorBox.classList.add('hidden');
+        }
+
+        function hideResult() {
+            resultContainer.classList.add('hidden');
+            loadingState.classList.add('hidden');
+            resultState.classList.add('hidden');
+            finalGeneratedImage = null;
+            resultImg.src = '';
+        }
+
+        // --- Core API Logic ---
+        async function generateImageAPI(prompt, base64Image, mimeType) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent?key=${apiKey}`;
+            const base64Data = base64Image.split(',')[1];
+
+            const payload = {
+                contents: [{
+                    role: "user",
+                    parts: [{ text: prompt }, { inlineData: { mimeType: mimeType, data: base64Data } }]
+                }],
+                generationConfig: { responseModalities: ["TEXT", "IMAGE"] }
+            };
+
+            const maxRetries = 5;
+            const delays = [1000, 2000, 4000, 8000, 16000];
+
+            for (let attempt = 0; attempt < maxRetries; attempt++) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) {
+                        const errData = await response.json().catch(() => ({}));
+                        throw new Error(errData.error?.message || `HTTP error! status: ${response.status}`);
+                    }
+                    
+                    const result = await response.json();
+                    const imagePart = result.candidates?.[0]?.content?.parts?.find(p => p.inlineData);
+                    
+                    if (imagePart?.inlineData) {
+                        return `data:${imagePart.inlineData.mimeType};base64,${imagePart.inlineData.data}`;
+                    }
+                    throw new Error("AI gagal memproses gambar. Coba lagi.");
+                } catch (error) {
+                    if (attempt === maxRetries - 1) throw error;
+                    await new Promise(resolve => setTimeout(resolve, delays[attempt]));
+                }
+            }
+        }
+
+        // --- Watermark (Client Side Canvas) ---
+        const applyWatermark = (base64Img, mime) => {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.crossOrigin = "Anonymous";
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    
+                    ctx.drawImage(img, 0, 0);
+                    
+                    const fontSize = Math.max(14, Math.floor(img.height * 0.025));
+                    ctx.font = `bold ${fontSize}px 'Boldonse', sans-serif`;
+                    ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+                    ctx.shadowColor = "rgba(0,0,0,0.5)";
+                    ctx.shadowBlur = 4;
+                    ctx.fillText("sonystarkAI", fontSize, canvas.height - fontSize);
+                    
+                    resolve(canvas.toDataURL(mime));
+                };
+                img.onerror = () => resolve(base64Img); // Fallback tanpa watermark
+                img.src = base64Img;
+            });
+        };
+
+        // --- Generate Handler ---
+        btnGenerate.addEventListener('click', async () => {
+            if (!inputImageBase64) return;
+            
+            // Set UI State Loading
+            isGenerating = true;
+            updateGenerateButtonState();
+            hideError();
+            
+            // Tweak Icon to spinner
+            btnIcon.setAttribute('data-lucide', 'sparkles');
+            btnIcon.classList.add('animate-spin');
+            btnIcon.classList.add('transition-transform');
+            btnIcon.replaceWith(btnIcon.cloneNode(true));
+            const newIcon = document.getElementById('btn-icon');
+            newIcon.setAttribute('data-lucide', 'loader-2');
+            btnText.textContent = 'Mengirim request...';
+            lucide.createIcons();
+            
+            // Tampilkan Loading Area
+            resultContainer.classList.remove('hidden');
+            loadingState.classList.remove('hidden');
+            resultState.classList.add('hidden');
+            
+            // Scroll sedikit agar loading terlihat
+            resultContainer.scrollIntoView({ behavior: 'smooth' });
+
+            // Rakit Prompt
+            let finalPrompt = "Use the uploaded photo as the absolute main reference. Preserve the original food/product identity, ingredients, textures, and proportions.";
+            
+            if (selectedStyleObj) {
+                finalPrompt += ` ${selectedStyleObj.prompt}. `;
+            }
+            
+            const customTxt = customPromptInput.value.trim();
+            if (customTxt) {
+                finalPrompt += ` ${customTxt}. `;
+            }
+            
+            finalPrompt += " photorealistic, hyper-realistic, ultra-realistic, 8k, high-resolution, crisp details, professional food/product photography, editorial style, highly detailed.";
+
+            try {
+                // Panggil API
+                const rawResultBase64 = await generateImageAPI(finalPrompt, inputImageBase64, inputMimeType);
+                
+                // Aplikasikan Watermark
+                finalGeneratedImage = await applyWatermark(rawResultBase64, inputMimeType);
+                
+                // Tampilkan Hasil
+                resultImg.src = finalGeneratedImage;
+                loadingState.classList.add('hidden');
+                resultState.classList.remove('hidden');
+                
+            } catch (err) {
+                showError(err.message);
+                resultContainer.classList.add('hidden');
+            } finally {
+                // Kembalikan UI State Button
+                isGenerating = false;
+                updateGenerateButtonState();
+                
+                btnIcon.setAttribute('data-lucide', 'wand-2');
+                btnIcon.classList.remove('animate-spin');
+                btnText.textContent = 'Generate';
+                lucide.createIcons();
+            }
+        });
+
+        // --- Download Handler ---
+        btnDownload.addEventListener('click', async () => {
+            if (!finalGeneratedImage) return;
+
+            try {
+                const res = await fetch(finalGeneratedImage);
+                const blob = await res.blob();
+                const url = window.URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = `sonystark-glass-${Date.now()}.png`;
+                
+                document.body.appendChild(a);
+                a.click();
+                
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                }, 100);
+
+            } catch (err) {
+                console.error("Download otomatis gagal:", err);
+            }
+        });
+
+    </script>
+</body>
+</html>
